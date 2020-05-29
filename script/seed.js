@@ -1,18 +1,49 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Day, Mood} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
   const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+    User.create({
+      email: 'cody@email.com',
+      password: '123456',
+      firstName: 'Cody'
+    }),
+    User.create({
+      email: 'murphy@email.com',
+      password: '123456',
+      firstName: 'Murphy'
+    }),
+    User.create({
+      email: 'stephaniebchiang@gmail.com',
+      password: '098765',
+      firstName: 'Steph',
+      accountType: 'Admin'
+    })
   ])
 
+  const moods = await Promise.all([
+    Mood.create({color: 'orange', mood: 'excited'}),
+    Mood.create({color: 'yellow', mood: 'happy'}),
+    Mood.create({color: 'green', mood: 'serene'}),
+    Mood.create({color: 'blue', mood: 'melancholy'}),
+    Mood.create({color: 'purple', mood: 'moody'}),
+    Mood.create({color: 'red', mood: 'angry'}),
+    Mood.create({color: 'black', mood: 'depressed'}),
+    Mood.create({color: 'grey', mood: 'neutral'})
+  ])
+
+  // const days = await Promise.all([
+  //   Day.create()
+  // ])
+
   console.log(`seeded ${users.length} users`)
+  // console.log(`seeded ${days.length} day`)
+  console.log(`seeded ${moods.length} moods`)
   console.log(`seeded successfully`)
 }
 
