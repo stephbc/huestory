@@ -1,20 +1,26 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+// import {Route, Switch} from 'react-router-dom'
 import MoodSelector from './MoodSelector'
+import Dashboard from './Dashboard'
 
 /**
  * COMPONENT
  */
-export const UserHome = props => {
-  const {firstName} = props
-
-  // console.log(props)
+export const UserHome = () => {
+  // const [moodToday, setMoodToday] = useState("")
 
   return (
     <div>
-      <h3>Welcome, {firstName}</h3>
       <MoodSelector />
+
+      {/* <Switch>
+        {/* <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
+        <Route component={MoodSelector} />
+      </Switch> */}
+      <Dashboard />
     </div>
   )
 }

@@ -3,11 +3,13 @@ import {createLogger} from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
-import moodsReducer from './mood'
+import mood from './mood'
+import days from './days'
 
 const reducer = combineReducers({
   user,
-  mood: moodsReducer
+  mood,
+  days
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))

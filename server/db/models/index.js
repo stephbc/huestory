@@ -9,13 +9,18 @@ const Mood = require('./mood')
  *    BlogPost.belongsTo(User)
  */
 
-Mood.belongsToMany(User, {through: Day})
-User.belongsToMany(Mood, {through: Day})
+// Mood.belongsToMany(User, {through: Day})
+// User.belongsToMany(Mood, {through: Day})
 
-// User.hasMany(Day)
-// Day.hasMany(Mood)
+User.hasMany(Day)
+Day.belongsTo(User)
+Mood.belongsTo(Day)
+Day.hasOne(Mood)
+
+User.hasMany(Mood)
+Mood.belongsTo(User)
 // Mood.hasMany(Day)
-// Day.hasMany(User)
+// Day.belongsTo(Mood)
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,

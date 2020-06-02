@@ -37,12 +37,10 @@ async function seed() {
     Mood.create({color: 'grey', mood: 'neutral'})
   ])
 
-  // const days = await Promise.all([
-  //   Day.create()
-  // ])
+  const days = await Promise.all([Day.create({userId: 3, moodId: 1})])
 
   console.log(`seeded ${users.length} users`)
-  // console.log(`seeded ${days.length} day`)
+  console.log(`seeded ${days.length} days`)
   console.log(`seeded ${moods.length} moods`)
   console.log(`seeded successfully`)
 }

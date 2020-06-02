@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const GET_ALL_MOODS = 'GET_ALL_MOODS'
 const GET_SINGLE_MOOD = 'GET_SINGLE_MOOD'
+const ADD_TODAYS_MOOD = 'ADD_TODAYS_MOOD'
 
 export const getAllMoods = moods => {
   return {
@@ -12,6 +13,12 @@ export const getAllMoods = moods => {
 export const getSingleMood = mood => {
   return {
     type: GET_SINGLE_MOOD,
+    mood
+  }
+}
+export const addTodaysMood = mood => {
+  return {
+    type: ADD_TODAYS_MOOD,
     mood
   }
 }
@@ -31,6 +38,18 @@ export const fetchSingleMood = color => {
     try {
       const {data} = await axios.get(`/api/moods/${color}`)
       dispatch(getSingleMood(data))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+export const addTodaysMoodThunk = moodId => {
+  return async dispatch => {
+    try {
+      // console.log(moodId)
+
+      const {data} = await axios.post(`/api/moods/${moodId}`)
+      dispatch(addTodaysMood(data))
     } catch (error) {
       console.error(error)
     }
