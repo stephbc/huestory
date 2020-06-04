@@ -15,6 +15,20 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
+router.get('/:userId/today', async (req, res, next) => {
+  try {
+    const today = await Day.findAll({
+      where: {
+        userId: req.params.userId,
+        date: new Date()
+      }
+    })
+    res.json(today)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.post('/:userId/:moodId', async (req, res, next) => {
   try {
     // console.log(req.body)

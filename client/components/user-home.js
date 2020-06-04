@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-// import {Route, Switch} from 'react-router-dom'
+import {Route, Switch} from 'react-router-dom'
 import MoodSelector from './MoodSelector'
-import Dashboard from './Dashboard'
+import Calendar from './Calendar'
 
 /**
  * COMPONENT
@@ -13,14 +13,11 @@ export const UserHome = () => {
 
   return (
     <div>
-      <MoodSelector />
-
-      {/* <Switch>
-        {/* <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route component={MoodSelector} />
-      </Switch> */}
-      <Dashboard />
+      <Switch>
+        <Route exact path="/home" component={MoodSelector} />
+        <Route path="/home/calendar" component={Calendar} />
+        <Route component={Calendar} />
+      </Switch>
     </div>
   )
 }

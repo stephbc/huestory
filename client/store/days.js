@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const GET_ALL_DAYS = 'GET_ALL_DAYS'
-const GET_SINGLE_DAY = 'GET_SINGLE_DAY'
+const GET_TODAYS_MOOD = 'GET_TODAYS_MOOD'
 const ADD_TODAYS_MOOD = 'ADD_TODAYS_MOOD'
 
 export const getAllDays = days => {
@@ -10,10 +10,10 @@ export const getAllDays = days => {
     days
   }
 }
-export const getSingleDay = day => {
+export const getTodaysMood = moodId => {
   return {
-    type: GET_SINGLE_DAY,
-    day
+    type: GET_TODAYS_MOOD,
+    moodId
   }
 }
 export const addTodaysMood = moodId => {
@@ -43,11 +43,11 @@ export const fetchUserDays = userId => {
     }
   }
 }
-export const fetchSingleDay = date => {
+export const fetchTodaysMood = userId => {
   return async dispatch => {
     try {
-      const {data} = await axios.get(`/api/days/${date}`)
-      dispatch(getSingleDay(data))
+      const {data} = await axios.get(`/api/days/${userId}/today`)
+      dispatch(fetchTodaysMood(data))
     } catch (error) {
       console.error(error)
     }
@@ -68,17 +68,17 @@ export const addTodaysMoodThunk = (userId, moodId) => {
 
 const initialState = {
   days: [],
-  day: {}
+  today: {}
 }
 
 function daysReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_DAYS:
       return {...state, days: action.days}
-    case GET_SINGLE_DAY:
-      return {...state, day: action.day}
+    case GET_TODAYS_MOOD:
+      return {...state, today: action.moodId}
     case ADD_TODAYS_MOOD:
-      return {...state, days: [...state.days, action.moodId]}
+      return {...state, today: action.moodId}
     default:
       return state
   }

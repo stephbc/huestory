@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchUserDays} from '../store/days'
 
-class Dashboard extends React.Component {
+class Calendar extends React.Component {
   // const {firstName} = props
 
   componentDidMount() {
@@ -16,6 +16,7 @@ class Dashboard extends React.Component {
           {/* {this.props.days.map(day => {
             return <div key={day.date}>{day.date}</div>
           })} */}
+          CALENDAR
           {this.props.days.length}
         </div>
       </div>
@@ -37,4 +38,4 @@ const mapDispatchToProps = dispatch => ({
   // getSingleMood: name => dispatch(getSingleMood(name))
 })
 
-export default connect(mapState, mapDispatchToProps)(Dashboard)
+export default connect(mapState, mapDispatchToProps)(Calendar)
