@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchAllMoods, addTodaysMoodThunk} from '../store/mood'
+import {fetchAllMoods} from '../store/mood'
+import {addTodaysMoodThunk} from '../store/days'
 
 class MoodSelector extends React.Component {
   constructor() {
@@ -13,10 +14,12 @@ class MoodSelector extends React.Component {
     this.props.fetchAllMoods()
   }
 
-  handleClick(mood) {
+  handleClick(userId, moodId) {
     event.preventDefault()
-    console.log('handleclick', mood)
-    this.props.addTodaysMoodThunk(mood.id)
+    // console.log('handleclick', mood)
+    // console.log(userId, moodId)
+
+    this.props.addTodaysMoodThunk(userId, moodId)
     this.setState({moodToday: event.target.innerText})
   }
 
@@ -31,7 +34,12 @@ class MoodSelector extends React.Component {
             {this.props.moods.map(mood => {
               return (
                 <div key={mood.color}>
-                  <button type="submit" onClick={() => this.handleClick(mood)}>
+                  <button
+                    type="submit"
+                    onClick={() =>
+                      this.handleClick(this.props.user.id, mood.id)
+                    }
+                  >
                     {mood.mood}
                   </button>
                 </div>
@@ -49,12 +57,13 @@ class MoodSelector extends React.Component {
 
 const mapStateToProps = state => ({
   moods: state.mood.moods,
-  firstName: state.user.firstName
+  user: state.user
 })
 
 const mapDispatchToProps = dispatch => ({
   fetchAllMoods: () => dispatch(fetchAllMoods()),
-  addTodaysMoodThunk: moodId => dispatch(addTodaysMoodThunk(moodId))
+  addTodaysMoodThunk: (userId, moodId) =>
+    dispatch(addTodaysMoodThunk(userId, moodId))
 
   // getSingleMood: name => dispatch(getSingleMood(name))
 })

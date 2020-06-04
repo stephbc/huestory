@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const GET_ALL_DAYS = 'GET_ALL_DAYS'
 const GET_SINGLE_DAY = 'GET_SINGLE_DAY'
+const ADD_TODAYS_MOOD = 'ADD_TODAYS_MOOD'
 
 export const getAllDays = days => {
   return {
@@ -13,6 +14,12 @@ export const getSingleDay = day => {
   return {
     type: GET_SINGLE_DAY,
     day
+  }
+}
+export const addTodaysMood = moodId => {
+  return {
+    type: ADD_TODAYS_MOOD,
+    moodId
   }
 }
 
@@ -46,6 +53,18 @@ export const fetchSingleDay = date => {
     }
   }
 }
+export const addTodaysMoodThunk = (userId, moodId) => {
+  return async dispatch => {
+    try {
+      // console.log(userId, moodId)
+      const {data} = await axios.post(`/api/days/${userId}/${moodId}`)
+      // console.log(data)
+      dispatch(addTodaysMood(data.moodId))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
 
 const initialState = {
   days: [],
@@ -58,6 +77,8 @@ function daysReducer(state = initialState, action) {
       return {...state, days: action.days}
     case GET_SINGLE_DAY:
       return {...state, day: action.day}
+    case ADD_TODAYS_MOOD:
+      return {...state, days: [...state.days, action.moodId]}
     default:
       return state
   }

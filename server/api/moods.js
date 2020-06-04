@@ -20,17 +20,17 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-router.post('/:id', async (req, res, next) => {
-  try {
-    const addMood = await Day.create({
-      moodId: req.params.id,
-      userId: req.user.id
-    })
-    res.json(addMood)
-  } catch (error) {
-    next(error)
-  }
-})
+// router.post('/:id', async (req, res, next) => {
+//   try {
+//     const addMood = await Day.create({
+//       moodId: req.params.id,
+//       userId: req.user.id
+//     })
+//     res.json(addMood)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
 
 // router.get('/:id/users', async (req, res, next) => {
 //   try {

@@ -13,9 +13,10 @@ class Dashboard extends React.Component {
     return (
       <div>
         <div className="calendar">
-          {this.props.days.map(day => {
+          {/* {this.props.days.map(day => {
             return <div key={day.date}>{day.date}</div>
-          })}
+          })} */}
+          {this.props.days.length}
         </div>
       </div>
     )

@@ -2,16 +2,6 @@ const router = require('express').Router()
 const {Day} = require('../db/models')
 module.exports = router
 
-router.post('/', async (req, res, next) => {
-  try {
-    const today = await Day.create()
-    if (today) res.json(today)
-    else res.sendStatus(500)
-  } catch (error) {
-    next(error)
-  }
-})
-
 router.get('/:userId', async (req, res, next) => {
   try {
     const days = await Day.findAll({
@@ -19,9 +9,28 @@ router.get('/:userId', async (req, res, next) => {
         userId: req.params.userId
       }
     })
-    // if(!days) await Day.create(req.body);
     res.json(days)
   } catch (err) {
     next(err)
+  }
+})
+
+router.post('/:userId/:moodId', async (req, res, next) => {
+  try {
+    // console.log(req.body)
+    const todayMood = await Day.findOrCreate({
+      where: {
+        userId: req.params.userId,
+        date: new Date()
+      },
+      defaults: {
+        moodId: req.params.moodId
+      }
+    })
+    console.log(todayMood[0].dataValues, 'todaymood api')
+    if (todayMood[0]) res.json(todayMood[0].dataValues)
+    else res.sendStatus(500)
+  } catch (error) {
+    next(error)
   }
 })

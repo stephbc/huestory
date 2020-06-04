@@ -5,6 +5,7 @@ const Day = db.define('day', {
   date: {
     type: Sequelize.DATEONLY,
     defaultValue: Sequelize.NOW
+    // unique: true
   }
 })
 

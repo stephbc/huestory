@@ -40,6 +40,27 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
+// router.get('/:id/days', async (req, res, next) => {
+//   try {
+//     const thisUser = await User.findByPk(req.params.id)
+//     if (!req.user) res.sendStatus(401)
+//     if (
+//       (thisUser && req.user.email === thisUser.email) ||
+//       (req.user && req.user.accountType === 'Admin')
+//     ) {
+//       const userCal = await Day.findAll({
+//         where: {
+//           userId: req.params.id
+//         }
+//       })
+//       res.json(userCal)
+//     }
+//     else res.sendStatus(401)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
+
 router.put('/:id', async (req, res, next) => {
   try {
     const thisUser = await User.findByPk(req.params.id)

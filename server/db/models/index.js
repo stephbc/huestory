@@ -9,16 +9,16 @@ const Mood = require('./mood')
  *    BlogPost.belongsTo(User)
  */
 
-// Mood.belongsToMany(User, {through: Day})
-// User.belongsToMany(Mood, {through: Day})
+Mood.belongsToMany(User, {through: Day})
+User.belongsToMany(Mood, {through: Day})
 
-User.hasMany(Day)
-Day.belongsTo(User)
-Mood.belongsTo(Day)
-Day.hasOne(Mood)
+// User.hasMany(Day)
+// Day.belongsTo(User)
+// Mood.belongsTo(Day)
+// Day.hasMany(Mood)
 
-User.hasMany(Mood)
-Mood.belongsTo(User)
+// User.hasMany(Mood)
+// Mood.belongsTo(User)
 // Mood.hasMany(Day)
 // Day.belongsTo(Mood)
 
