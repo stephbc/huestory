@@ -10,6 +10,7 @@ class Calendar extends React.Component {
   }
 
   render() {
+    console.log(this.props.days)
     return (
       <div>
         <div className="calendar">

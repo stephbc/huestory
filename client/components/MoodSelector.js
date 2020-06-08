@@ -7,9 +7,9 @@ import Calendar from './Calendar'
 
 class MoodSelector extends React.Component {
   componentDidMount() {
-    console.log('componentdidmount', this.props.user)
     this.props.fetchAllMoods()
-    this.props.fetchTodaysMood(Number(this.props.user.id))
+    this.props.fetchTodaysMood(this.props.user.id)
+    // console.log('componentdidmount', this.props)
   }
 
   handleClick(userId, moodId) {
@@ -17,12 +17,11 @@ class MoodSelector extends React.Component {
     // console.log('handleclick', mood)
     // console.log(userId, moodId)
     this.props.addTodaysMoodThunk(userId, moodId)
-    // this.setState({this.state.today: event.target.innerText})
   }
 
   render() {
-    // console.log('mood selector component', this.props)
-    // console.log(this.state.today)
+    console.log('mood selector component', this.props)
+    // console.log("this props days", this.props.days)
     if (!this.props.today) {
       return (
         <div>
@@ -55,7 +54,8 @@ class MoodSelector extends React.Component {
 const mapStateToProps = state => ({
   moods: state.mood.moods,
   user: state.user,
-  today: state.today
+  days: state.days.days,
+  today: state.days.today
 })
 
 const mapDispatchToProps = dispatch => ({

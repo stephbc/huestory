@@ -10,29 +10,29 @@ export const getAllDays = days => {
     days
   }
 }
-export const getTodaysMood = moodId => {
+export const getTodaysMood = today => {
   return {
     type: GET_TODAYS_MOOD,
-    moodId
+    today
   }
 }
-export const addTodaysMood = moodId => {
+export const addTodaysMood = today => {
   return {
     type: ADD_TODAYS_MOOD,
-    moodId
+    today
   }
 }
 
-export const fetchAllDays = () => {
-  return async dispatch => {
-    try {
-      const {data} = await axios.get('/api/days')
-      dispatch(getAllDays(data))
-    } catch (error) {
-      console.error(error)
-    }
-  }
-}
+// export const fetchAllDays = () => {
+//   return async dispatch => {
+//     try {
+//       const {data} = await axios.get('/api/days')
+//       dispatch(getAllDays(data))
+//     } catch (error) {
+//       console.error(error)
+//     }
+//   }
+// }
 export const fetchUserDays = userId => {
   return async dispatch => {
     try {
@@ -47,7 +47,8 @@ export const fetchTodaysMood = userId => {
   return async dispatch => {
     try {
       const {data} = await axios.get(`/api/days/${userId}/today`)
-      dispatch(fetchTodaysMood(data))
+      // console.log(data[0].moodId)
+      dispatch(getTodaysMood(data[0]))
     } catch (error) {
       console.error(error)
     }
@@ -58,8 +59,8 @@ export const addTodaysMoodThunk = (userId, moodId) => {
     try {
       // console.log(userId, moodId)
       const {data} = await axios.post(`/api/days/${userId}/${moodId}`)
-      // console.log(data)
-      dispatch(addTodaysMood(data.moodId))
+      console.log('addthunk', data)
+      dispatch(addTodaysMood(data))
     } catch (error) {
       console.error(error)
     }
@@ -76,9 +77,13 @@ function daysReducer(state = initialState, action) {
     case GET_ALL_DAYS:
       return {...state, days: action.days}
     case GET_TODAYS_MOOD:
-      return {...state, today: action.moodId}
+      return {...state, today: action.today}
     case ADD_TODAYS_MOOD:
-      return {...state, today: action.moodId}
+      return {
+        ...state,
+        days: [...state.days, action.today],
+        today: action.today
+      }
     default:
       return state
   }
