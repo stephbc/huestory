@@ -26,7 +26,6 @@ export const UserHome = () => {
  * CONTAINER
  */
 const mapState = state => {
-  // console.log(state)
   return {
     // email: state.user.email,
     firstName: state.user.firstName

@@ -47,7 +47,6 @@ export const fetchTodaysMood = userId => {
   return async dispatch => {
     try {
       const {data} = await axios.get(`/api/days/${userId}/today`)
-      // console.log(data[0].moodId)
       dispatch(getTodaysMood(data[0]))
     } catch (error) {
       console.error(error)
@@ -57,9 +56,7 @@ export const fetchTodaysMood = userId => {
 export const addTodaysMoodThunk = (userId, moodId) => {
   return async dispatch => {
     try {
-      // console.log(userId, moodId)
       const {data} = await axios.post(`/api/days/${userId}/${moodId}`)
-      console.log('addthunk', data)
       dispatch(addTodaysMood(data))
     } catch (error) {
       console.error(error)

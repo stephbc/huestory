@@ -31,7 +31,6 @@ router.get('/:userId/today', async (req, res, next) => {
 
 router.post('/:userId/:moodId', async (req, res, next) => {
   try {
-    // console.log(req.body)
     const todayMood = await Day.findOrCreate({
       where: {
         userId: req.params.userId,
@@ -41,7 +40,6 @@ router.post('/:userId/:moodId', async (req, res, next) => {
         moodId: req.params.moodId
       }
     })
-    console.log(todayMood[0].dataValues, 'todaymood api')
     if (todayMood[0]) res.json(todayMood[0].dataValues)
     else res.sendStatus(500)
   } catch (error) {

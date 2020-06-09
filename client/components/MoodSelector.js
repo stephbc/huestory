@@ -9,19 +9,14 @@ class MoodSelector extends React.Component {
   componentDidMount() {
     this.props.fetchAllMoods()
     this.props.fetchTodaysMood(this.props.user.id)
-    // console.log('componentdidmount', this.props)
   }
 
   handleClick(userId, moodId) {
     event.preventDefault()
-    // console.log('handleclick', mood)
-    // console.log(userId, moodId)
     this.props.addTodaysMoodThunk(userId, moodId)
   }
 
   render() {
-    console.log('mood selector component', this.props)
-    // console.log("this props days", this.props.days)
     if (!this.props.today) {
       return (
         <div>
