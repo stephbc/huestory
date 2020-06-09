@@ -7,7 +7,7 @@ class Calendar extends React.Component {
     super()
     this.DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     this.DAYS_LEAP = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-    this.DAYS_OF_THE_WEEK = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
+    this.DAYS_OF_THE_WEEK = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
     this.MONTHS = [
       'JAN',
       'FEB',
@@ -35,6 +35,7 @@ class Calendar extends React.Component {
   }
 
   getStartDayOfMonth(date) {
+    console.log('getstart', date)
     return new Date(date.getFullYear(), date.getMonth(), 1).getDay()
   }
 
@@ -47,31 +48,48 @@ class Calendar extends React.Component {
   }
 
   clickPrev(current) {
+    console.log(current, 'current')
     this.setState({
-      date: new Date(current.year, current.month - 1, current.day)
+      date: new Date(current.year, current.month - 1, 1),
+      day: 1,
+      month: current.month - 1,
+      year: current.year,
+      startDay: this.getStartDayOfMonth(
+        new Date(current.year, current.month - 1, 1)
+      )
     })
+    // console.log(this.state.month)
   }
 
   clickNext(current) {
     this.setState({
-      date: new Date(current.year, current.month + 1, current.day)
+      date: new Date(current.year, current.month + 1, current.day),
+      month: current.month + 1
     })
   }
 
+  clickDate(d) {
+    console.log(d)
+    this.setState({date: new Date(d.year, d.month, d)})
+  }
+
   render() {
-    // console.log("calendar props", this.props)
+    console.log('calendar props', this.props.today.moodId)
+    console.log('calendar moods', this.props.mood)
+
     // console.log("calendar state", this.state)
     const days = this.isLeapYear(this.state.date.getFullYear())
       ? this.DAYS_LEAP
       : this.DAYS
+    const calendarDay = d =>
+      d === this.state.day ? 'highlightToday' : 'calendarDay'
     return (
       <div id="calendarFrame">
-        CALENDAR
-        {/* <div className="calendar">
+        <div className="calendar">
           {this.props.days.map(day => {
             return <div key={day.date}>{day.date}</div>
           })}
-        </div> */}
+        </div>
         <div id="calendarHeader">
           <button type="submit" onClick={() => this.clickPrev(this.state)}>
             Prev
@@ -85,22 +103,21 @@ class Calendar extends React.Component {
         </div>
         <div id="calendarBody">
           {this.DAYS_OF_THE_WEEK.map(d => (
-            <div key={d}>
+            <div key={d} id="calendarWeek">
               <strong>{d}</strong>
             </div>
           ))}
-          {Array(days[this.state.month] + (this.state.startDay - 1))
+          {Array(days[this.state.month] + this.state.startDay)
             .fill(null)
             .map((_, index) => {
-              const d = index - (this.state.startDay - 2)
+              const d = index - (this.state.startDay - 1)
               return (
                 <div
+                  id={calendarDay(d)}
                   key={d}
                   // isToday={d === this.state.date.getDate()}
                   // isSelected={d === this.state.day}
-                  onClick={() =>
-                    this.setDate(new Date(this.state.year, this.state.month, d))
-                  }
+                  onClick={() => this.clickDate(d)}
                 >
                   {d > 0 ? d : ''}
                 </div>
@@ -117,7 +134,8 @@ const mapState = state => {
     userId: state.user.id,
     firstName: state.user.firstName,
     days: state.days.days,
-    today: state.days.today
+    today: state.days.today,
+    mood: state.mood.moods
   }
 }
 
