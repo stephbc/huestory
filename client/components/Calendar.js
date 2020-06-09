@@ -31,11 +31,12 @@ class Calendar extends React.Component {
       month: this.today.getMonth(),
       year: this.today.getFullYear(),
       startDay: this.getStartDayOfMonth(this.today)
+      // todayColor: ""
     }
   }
 
   getStartDayOfMonth(date) {
-    console.log('getstart', date)
+    // console.log("getstart", date)
     return new Date(date.getFullYear(), date.getMonth(), 1).getDay()
   }
 
@@ -44,14 +45,16 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
+    // console.log(this.props)
     this.props.fetchUserDays(this.props.userId)
+    // this.setState({todayColor: this.props.mood.find(moodObj => moodObj.id === this.props.today.moodId)})
   }
 
   clickPrev(current) {
-    console.log(current, 'current')
+    // console.log(current, "current")
     this.setState({
       date: new Date(current.year, current.month - 1, 1),
-      day: 1,
+      day: 0,
       month: current.month - 1,
       year: current.year,
       startDay: this.getStartDayOfMonth(
@@ -63,26 +66,32 @@ class Calendar extends React.Component {
 
   clickNext(current) {
     this.setState({
-      date: new Date(current.year, current.month + 1, current.day),
-      month: current.month + 1
+      date: new Date(current.year, current.month + 1, 1),
+      day: 0,
+      month: current.month + 1,
+      year: current.year,
+      startDay: this.getStartDayOfMonth(
+        new Date(current.year, current.month + 1, 1)
+      )
     })
   }
 
   clickDate(d) {
-    console.log(d)
+    // console.log(d)
     this.setState({date: new Date(d.year, d.month, d)})
   }
 
   render() {
-    console.log('calendar props', this.props.today.moodId)
-    console.log('calendar moods', this.props.mood)
-
+    // console.log("calendar props", this.props.today.moodId)
+    // console.log("calendar moods", this.props.mood)
     // console.log("calendar state", this.state)
+    // console.log(this.state, "today color")
+
     const days = this.isLeapYear(this.state.date.getFullYear())
       ? this.DAYS_LEAP
       : this.DAYS
     const calendarDay = d =>
-      d === this.state.day ? 'highlightToday' : 'calendarDay'
+      d === this.state.day && d !== 0 ? 'highlightToday' : 'calendarDay'
     return (
       <div id="calendarFrame">
         <div className="calendar">
