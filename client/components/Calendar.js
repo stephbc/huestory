@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchUserDays} from '../store/days'
+import CalendarDay from './CalendarDay'
 
 class Calendar extends React.Component {
   constructor() {
@@ -31,12 +32,10 @@ class Calendar extends React.Component {
       month: this.today.getMonth(),
       year: this.today.getFullYear(),
       startDay: this.getStartDayOfMonth(this.today)
-      // todayColor: ""
     }
   }
 
   getStartDayOfMonth(date) {
-    // console.log("getstart", date)
     return new Date(date.getFullYear(), date.getMonth(), 1).getDay()
   }
 
@@ -45,13 +44,10 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
-    // console.log(this.props)
     this.props.fetchUserDays(this.props.userId)
-    // this.setState({todayColor: this.props.mood.find(moodObj => moodObj.id === this.props.today.moodId)})
   }
 
   clickPrev(current) {
-    // console.log(current, "current")
     this.setState({
       date: new Date(current.year, current.month - 1, 1),
       day: 0,
@@ -61,7 +57,6 @@ class Calendar extends React.Component {
         new Date(current.year, current.month - 1, 1)
       )
     })
-    // console.log(this.state.month)
   }
 
   clickNext(current) {
@@ -76,29 +71,26 @@ class Calendar extends React.Component {
     })
   }
 
-  clickDate(d) {
-    // console.log(d)
-    this.setState({date: new Date(d.year, d.month, d)})
-  }
+  // clickDate(d) {
+  //   console.log(d, "day")
+  //   this.setState({
+  //     date: new Date(d.year, d.month, d),
+  //     day: d,
+  //   })
+  // }
 
   render() {
-    // console.log("calendar props", this.props.today.moodId)
-    // console.log("calendar moods", this.props.mood)
+    // console.log("calendar props", this.props)
     // console.log("calendar state", this.state)
-    // console.log(this.state, "today color")
-
     const days = this.isLeapYear(this.state.date.getFullYear())
       ? this.DAYS_LEAP
       : this.DAYS
-    const calendarDay = d =>
-      d === this.state.day && d !== 0 ? 'highlightToday' : 'calendarDay'
+
+    // const todayColor = this.props.mood.find(moodObj => moodObj.id === this.props.today.moodId)
+
     return (
       <div id="calendarFrame">
-        <div className="calendar">
-          {this.props.days.map(day => {
-            return <div key={day.date}>{day.date}</div>
-          })}
-        </div>
+        Here's your month so far {this.props.firstName}:
         <div id="calendarHeader">
           <button type="submit" onClick={() => this.clickPrev(this.state)}>
             Prev
@@ -121,15 +113,11 @@ class Calendar extends React.Component {
             .map((_, index) => {
               const d = index - (this.state.startDay - 1)
               return (
-                <div
-                  id={calendarDay(d)}
+                <CalendarDay
                   key={d}
-                  // isToday={d === this.state.date.getDate()}
-                  // isSelected={d === this.state.day}
-                  onClick={() => this.clickDate(d)}
-                >
-                  {d > 0 ? d : ''}
-                </div>
+                  d={d}
+                  // onClick={() => this.clickDate(d)}
+                />
               )
             })}
         </div>
@@ -150,7 +138,6 @@ const mapState = state => {
 
 const mapDispatchToProps = dispatch => ({
   fetchUserDays: userId => dispatch(fetchUserDays(userId))
-  // getSingleMood: name => dispatch(getSingleMood(name))
 })
 
 export default connect(mapState, mapDispatchToProps)(Calendar)
