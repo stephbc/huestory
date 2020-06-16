@@ -11,10 +11,23 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id', async (req, res, next) => {
+// router.get('/:id', async (req, res, next) => {
+//   try {
+//     const thisMood = await Mood.findByPk(req.params.id)
+//     res.json(thisMood)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
+
+router.get('/:userId', async (req, res, next) => {
   try {
-    const thisMood = await Mood.findByPk(req.params.id)
-    res.json(thisMood)
+    const moods = await Mood.findAll({
+      where: {
+        userId: req.params.userId
+      }
+    })
+    res.json(moods)
   } catch (err) {
     next(err)
   }

@@ -6,6 +6,14 @@ const Day = db.define('day', {
     type: Sequelize.DATEONLY,
     defaultValue: Sequelize.NOW
     // unique: true
+  },
+  moodId: {
+    type: Sequelize.INTEGER,
+    unique: false
+  },
+  userId: {
+    type: Sequelize.INTEGER,
+    unique: false
   }
 })
 

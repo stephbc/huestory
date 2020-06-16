@@ -8,7 +8,8 @@ const CalendarDay = props => {
   // console.log(moodyDays)
 
   const dailyColor = d => {
-    if (moodyDays.includes(d)) {
+    const current = new Date()
+    if (moodyDays.includes(d) && props.month === current.getMonth()) {
       let thisDay = props.days.find(
         dayObj => Number(dayObj.date.slice(-2)) === d
       )

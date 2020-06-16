@@ -63,7 +63,7 @@ form div {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: orange;
+  background-color: #eaddc9;
 }
 
 #calDayyellow {
@@ -72,7 +72,7 @@ form div {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: yellow;
+  background-color: #efeed7;
 }
 
 #calDaygreen {
@@ -81,7 +81,7 @@ form div {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: green;
+  background-color: #c4d9c1;
 }
 
 #calDayblue {
@@ -90,7 +90,7 @@ form div {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: blue;
+  background-color: #aec6cf;
 }
 
 #calDaypurple {
@@ -99,7 +99,7 @@ form div {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: purple;
+  background-color: #bfb7ca;
 }
 
 #calDayred {
@@ -108,7 +108,7 @@ form div {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: red;
+  background-color: #ead0d0;
 }
 
 #calDayblack {
@@ -117,7 +117,7 @@ form div {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: black;
+  background-color: #808080;
 }
 
 #calDaygrey {
@@ -126,9 +126,9 @@ form div {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: grey;
+  background-color: #ececec;
 }
-
+/*
 #highlightToday {
   width: 14.2%;
   height: 70px;
@@ -137,4 +137,4 @@ form div {
   justify-content: center;
   background-color: #f70202;
   border: 1px solid #eee;
-}
+} */

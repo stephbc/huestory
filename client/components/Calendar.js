@@ -116,6 +116,7 @@ class Calendar extends React.Component {
                 <CalendarDay
                   key={d}
                   d={d}
+                  month={this.state.month}
                   // onClick={() => this.clickDate(d)}
                 />
               )
