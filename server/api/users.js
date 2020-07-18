@@ -1,23 +1,23 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const User = require('../db/models/user')
 module.exports = router
 
-const checkIfAdmin = (req, res, next) => {
-  if (req.user === undefined || req.user.accountType !== 'Admin') {
-    const error = new Error('illegal action')
-    error.status = 401
-    return next(error)
-  }
-  next()
-}
+// const checkIfAdmin = (req, res, next) => {
+//   if (req.user === undefined || req.user.accountType !== 'Admin') {
+//     const error = new Error('illegal action')
+//     error.status = 401
+//     return next(error)
+//   }
+//   next()
+// }
 
-router.get('/', checkIfAdmin, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
-    const users = await User.findAll({
+    const users = await User.find({
       // explicitly select only the id and email fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
-      attributes: ['id', 'email']
+      // attributes: ['id', 'email']
     })
     res.json(users)
   } catch (err) {
@@ -77,7 +77,7 @@ router.put('/:id', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', checkIfAdmin, async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   try {
     const thisUser = await User.findByPk(req.params.id)
     if (!thisUser) res.sendStatus(401)

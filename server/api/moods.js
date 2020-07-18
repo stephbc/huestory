@@ -1,37 +1,37 @@
 const router = require('express').Router()
-const {Mood, User, Day} = require('../db/models')
+const Mood = require('../db/models/mood')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const moods = await Mood.findAll()
+    const moods = await Mood.find()
     res.json(moods)
   } catch (err) {
     next(err)
   }
 })
 
-// router.get('/:id', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
+  try {
+    const thisMood = await Mood.findById(req.params.id)
+    res.json(thisMood)
+  } catch (err) {
+    next(err)
+  }
+})
+
+// router.get('/:userId', async (req, res, next) => {
 //   try {
-//     const thisMood = await Mood.findByPk(req.params.id)
-//     res.json(thisMood)
+//     const moods = await Mood.findAll({
+//       where: {
+//         userId: req.params.userId
+//       }
+//     })
+//     res.json(moods)
 //   } catch (err) {
 //     next(err)
 //   }
 // })
-
-router.get('/:userId', async (req, res, next) => {
-  try {
-    const moods = await Mood.findAll({
-      where: {
-        userId: req.params.userId
-      }
-    })
-    res.json(moods)
-  } catch (err) {
-    next(err)
-  }
-})
 
 // router.post('/:id', async (req, res, next) => {
 //   try {
