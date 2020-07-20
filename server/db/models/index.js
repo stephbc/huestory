@@ -1,4 +1,4 @@
-// const User = require('./user')
+const User = require('./user')
 // const Day = require('./day')
 const Mood = require('./mood')
 
@@ -30,7 +30,7 @@ const Mood = require('./mood')
 //  * instead of: const User = require('../db/models/user')
 //  */
 module.exports = {
-  // User,
+  User,
   // Day,
   Mood
 }
